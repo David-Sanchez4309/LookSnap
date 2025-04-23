@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+   <meta charset="UTF-8" />
+   <title>Panel de Administrador</title>
+   <style>
+      body {
+         margin: 0;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         background-image: url(images/bg-2.png);
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         color: #333;
+      }
+
+      header {
+         background-color: rgba(255, 255, 255, 0.1);
+         color: white;
+         text-align: center;
+         padding: 20px;
+         font-size: 24px;
+      }
+
+      main {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         padding: 40px 20px;
+      }
+
+      section {
+         background-color: #0e0e0e;
+         border-radius: 10px;
+         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+         padding: 30px;
+         margin: 20px;
+         width: 100%;
+         max-width: 600px;
+      }
+
+      h2 {
+         margin-top: 0;
+         color: #ffffff;
+      }
+
+      input,
+      button {
+         width: 100%;
+         padding: 12px;
+         margin-top: 12px;
+         border-radius: 6px;
+         border: none;
+         font-size: 16px;
+         box-sizing: border-box;
+      }
+
+      input {
+         background-color: #f1f1f1;
+      }
+
+      button {
+         background-color: #D82E37;
+         color: white;
+         cursor: pointer;
+      }
+
+      button:hover {
+         background-color: #1b2d42;
+      }
+
+      #listaBarberos ul {
+         list-style-type: disc;
+         padding-left: 20px;
+      }
+
+      #estadisticas,
+      #listaBarberos {
+         margin-top: 15px;
+         font-size: 16px;
+      }
+   </style>
+</head>
+
+<body>
+
+<header>
+   Panel del Administrador
+</header>
+
+<main>
+
+   <!-- Ver estadísticas -->
+   <section>
+      <h2>Estadísticas Generales</h2>
+      <button type="button" onclick="verEstadisticas()">Ver Estadísticas</button>
+      <div id="estadisticas"></div>
+   </section>
+
+   <!-- Ver barberos -->
+   <section>
+      <h2>Barberos Registrados</h2>
+      <button type="button" onclick="cargarBarberos()">Mostrar Barberos</button>
+      <div id="listaBarberos"></div>
+   </section>
+
+   <!-- Descargar reportes -->
+   <section>
+      <h2>Descargar Reporte</h2>
+      <button type="button" onclick="descargarCSV()">Descargar en formato CSV</button>
+   </section>
+
+   <!-- Crear barbero -->
+   <section>
+      <h2>Crear Perfil de Barbero</h2>
+      <form action="CrearBarberoServlet" method="post">
+         <input type="text" name="nombre" placeholder="Nombre del barbero" required="required" />
+         <input type="text" name="telefono" placeholder="Teléfono" required="required" />
+         <input type="email" name="correo" placeholder="Correo" required="required" />
+         <input type="text" name="direccion" placeholder="Dirección" required="required" />
+         <input type="password" name="contrasena" placeholder="Contraseña" required="required" />
+         <button type="submit">Crear Barbero</button>
+      </form>
+   </section>
+
+</main>
+
+<script type="text/javascript">
+   function verEstadisticas() {
+      document.getElementById('estadisticas').innerText =
+              "Total barberos: 5\nClientes activos: 20\nCitas este mes: 150";
+   }
+
+   function cargarBarberos() {
+      document.getElementById('listaBarberos').innerHTML = `
+      &lt;ul>
+        &lt;li>Juan Pérez&lt;/li>
+        &lt;li>Carlos Ramírez&lt;/li>
+        &lt;li>Kevin Torres&lt;/li>
+      &lt;/ul>`;
+   }
+
+   function descargarCSV() {
+      window.location.href = "GenerarReporteCSVServlet";
+   }
+</script>
+
+</body>
+</html>
