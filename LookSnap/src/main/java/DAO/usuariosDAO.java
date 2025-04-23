@@ -42,10 +42,11 @@ public class usuariosDAO {
     public boolean registrarUsuario(usuario u) {
         if (existeUsuario(u.getCorreo())) return false;
 
-        String query = "INSERT INTO usuarios (nombre, correo, telefono, direccion, contrasena) VALUES (?, ?, ?)";
+        String query = "INSERT INTO usuarios (nombre, apellido, correo, telefono, direccion, contrasena) VALUES (?, ?, ?)";
         try (Connection conn = DataBaseConnection.conectar();
              PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, u.getNombre());
+            ps.setString(6, u.getApellido());
             ps.setString(2, u.getCorreo());
             ps.setString(3, u.getTelefono());
             ps.setString(4, u.getDireccion());
