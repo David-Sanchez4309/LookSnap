@@ -28,7 +28,7 @@ public class ListarCitasServlet extends HttpServlet {
         }
 
         CitaUsuarioDAO dao = new CitaUsuarioDAO();
-        List<CitaUsuario> citas = dao.listarCitasConUsuarios(fecha);  // Pasar fecha al DAO
+        List<CitaUsuario> citas = dao.listarCitasPorUsuario(Integer.parseInt(fecha));  // Pasar fecha al DAO
 
         String json = new Gson().toJson(citas);
 
