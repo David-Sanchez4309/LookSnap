@@ -9,6 +9,7 @@ public class administrador {
 
     public administrador() {}
 
+    // Constructor sin ID (para insertar nuevos administradores)
     public administrador(String nombre, String correo, String telefono, String contrasena) {
         this.nombre = nombre;
         this.correo = correo;
@@ -16,6 +17,16 @@ public class administrador {
         this.contrasena = contrasena;
     }
 
+    // Constructor con ID (para consultas y actualizaciones)
+    public administrador(int id, String nombre, String correo, String telefono, String contrasena) {
+        this.id = id;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.contrasena = contrasena;
+    }
+
+    // Getters y Setters
     public int getId() {
         return id;
     }

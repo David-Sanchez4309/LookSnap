@@ -1,4 +1,5 @@
 package entities;
+
 import java.sql.Date;
 import java.sql.Time;
 
@@ -10,6 +11,18 @@ public class CitaUsuario {
     private Date fecha;
     private Time hora;
 
+    public CitaUsuario() {}
+
+    public CitaUsuario(String nombre, String telefono, String correo, String direccion, Date fecha, Time hora) {
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.direccion = direccion;
+        this.fecha = fecha;
+        this.hora = hora;
+    }
+
+    // Getters y Setters
     public String getNombre() {
         return nombre;
     }

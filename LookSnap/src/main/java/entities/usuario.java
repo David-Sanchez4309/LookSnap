@@ -3,27 +3,26 @@ package entities;
 public class usuario {
     private int id;
     private String nombre;
+    private String apellido;
     private String telefono;
     private String correo;
     private String direccion;
     private String contrasena;
-    private String apellido;
 
-    public usuario(){}
+    public usuario() {}
 
-    public usuario(int id, String nombre, String apellido, String telefono, String correo, String direccion, String contrasena){
+    // Constructor completo con todos los campos
+    public usuario(int id, String nombre, String apellido, String telefono, String correo, String direccion, String contrasena) {
         this.id = id;
-        this.apellido = apellido;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.telefono = telefono;
         this.correo = correo;
         this.direccion = direccion;
         this.contrasena = contrasena;
     }
 
-    public usuario(int i, String nombre, String apellido, String telefono, String direccion, String contrasena) {
-    }
-
+    // Getters y Setters
     public int getId() {
         return id;
     }

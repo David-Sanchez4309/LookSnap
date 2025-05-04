@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class administradorDAO {
     public boolean existeAdministrador(String correo) {
@@ -79,4 +81,42 @@ public class administradorDAO {
 
         return null;
     }
+
+    public boolean eliminarAdministrador(int id) {
+        boolean eliminado = false;
+        try (Connection conn = DataBaseConnection.conectar()) {
+            String sql = "DELETE FROM administradores WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            eliminado = stmt.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return eliminado;
+    }
+
+    public List<administrador> obtenerTodos() {
+        List<administrador> lista = new ArrayList<>();
+        try (Connection conn = DataBaseConnection.conectar()) {
+            String sql = "SELECT * FROM administradores";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                administrador a = new administrador();
+                a.setId(rs.getInt("id"));
+                a.setNombre(rs.getString("nombre"));
+                a.setCorreo(rs.getString("correo"));
+                a.setTelefono(rs.getString("telefono"));
+                a.setContrasena(rs.getString("contrasena"));
+                lista.add(a);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+
+
 }

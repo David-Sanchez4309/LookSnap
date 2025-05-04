@@ -18,6 +18,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
+
 }
 
 .header {
@@ -540,5 +541,4 @@ textarea {
     textarea {
         width: 250px !important;
     }
-
 }

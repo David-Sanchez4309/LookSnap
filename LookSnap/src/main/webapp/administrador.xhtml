@@ -1,8 +1,11 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <head>
    <meta charset="UTF-8" />
    <title>Panel de Administrador</title>
+   <link rel="stylesheet" href="css/style.css"/>
+
    <style>
       body {
          margin: 0;
@@ -80,7 +83,7 @@
          margin-top: 15px;
          font-size: 16px;
       }
-   </style>
+ </style>
 </head>
 
 <body>
@@ -134,11 +137,11 @@
 
    function cargarBarberos() {
       document.getElementById('listaBarberos').innerHTML = `
-      &lt;ul>
-        &lt;li>Juan Pérez&lt;/li>
-        &lt;li>Carlos Ramírez&lt;/li>
-        &lt;li>Kevin Torres&lt;/li>
-      &lt;/ul>`;
+         &lt;ul>
+            &lt;li>Juan Pérez&lt;/li>
+            &lt;li>Carlos Ramírez&lt;/li>
+            &lt;li>Kevin Torres&lt;/li>
+         &lt;/ul>`;
    }
 
    function descargarCSV() {

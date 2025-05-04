@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class barberoDAO {
     public boolean existeBarbero(String correo) {
@@ -81,4 +83,42 @@ public class barberoDAO {
 
         return null;
     }
+
+    public boolean eliminarBarbero(int id) {
+        boolean eliminado = false;
+        try (Connection conn = DataBaseConnection.conectar()) {
+            String sql = "DELETE FROM barberos WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            eliminado = stmt.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return eliminado;
+    }
+
+    public List<barbero> obtenerTodos() {
+        List<barbero> lista = new ArrayList<>();
+        try (Connection conn = DataBaseConnection.conectar()) {
+            String sql = "SELECT * FROM barberos";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                barbero b = new barbero();
+                b.setId(rs.getInt("id"));
+                b.setNombre(rs.getString("nombre"));
+                b.setCorreo(rs.getString("correo"));
+                b.setTelefono(rs.getString("telefono"));
+                b.setEspecialidad(rs.getString("especialidad"));
+                b.setContrasena(rs.getString("contrasena"));
+                lista.add(b);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+
 }

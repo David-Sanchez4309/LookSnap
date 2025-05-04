@@ -29,7 +29,7 @@ public class RegistroServlet extends HttpServlet {
             response.sendRedirect("registro.html?error=campos_vacios");
         }
 
-        usuario nuevoUsuario = new usuario(0, nombre, apellido, telefono, direccion, contrasena);
+        usuario nuevoUsuario = new usuario(0, nombre, apellido, correo, telefono, direccion, contrasena);
 
         usuariosDAO dao = new usuariosDAO();
         boolean exito = dao.registrarUsuario(nuevoUsuario);

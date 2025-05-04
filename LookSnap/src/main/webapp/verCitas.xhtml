@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core">
+<h:head>
+   <title>Citas Agendadas</title>
+</h:head>
+<h:body>
+   <h1>Listado de Usuarios</h1>
+
+   <h2>Clientes</h2>
+   <table border="1">
+      <tr><th>Nombre</th><th>Correo</th><th>Acciones</th></tr>
+      <c:forEach var="c" items="${clientes}">
+         <tr>
+            <td>${c.nombre}</td>
+            <td>${c.correo}</td>
+            <td>
+               <form action="EliminarUsuarioServlet" method="post" style="display:inline;">
+                  <input type="hidden" name="id" value="${c.id}"></input>
+                  <input type="hidden" name="rol" value="cliente"></input>
+                  <input type="submit" value="Eliminar"></input>
+               </form>
+               <!-- Aquí puedes añadir botón para cambiar rol más adelante -->
+            </td>
+         </tr>
+      </c:forEach>
+   </table>
+
+   <h2>Barberos</h2>
+   <table border="1">
+      <tr><th>Nombre</th><th>Correo</th><th>Acciones</th></tr>
+      <c:forEach var="b" items="${barberos}">
+         <tr>
+            <td>${b.nombre}</td>
+            <td>${b.correo}</td>
+            <td>
+               <form action="EliminarUsuarioServlet" method="post" style="display:inline;">
+                  <input type="hidden" name="id" value="${b.id}"></input>
+                  <input type="hidden" name="rol" value="barbero"></input>
+                  <input type="submit" value="Eliminar" ></input>
+               </form>
+            </td>
+         </tr>
+      </c:forEach>
+   </table>
+
+   <h2>Administradores</h2>
+   <table border="1">
+      <tr><th>Nombre</th><th>Correo</th><th>Acciones</th></tr>
+      <c:forEach var="a" items="${administradores}">
+         <tr>
+            <td>${a.nombre}</td>
+            <td>${a.correo}</td>
+            <td>
+               <form action="EliminarUsuarioServlet" method="post" style="display:inline;">
+                  <input type="hidden" name="id" value="${a.id}"></input>
+                  <input type="hidden" name="rol" value="administrador"></input>
+                  <input type="submit" value="Eliminar"></input>
+               </form>
+            </td>
+         </tr>
+      </c:forEach>
+   </table>
+</h:body>
+</html>

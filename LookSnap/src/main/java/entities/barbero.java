@@ -10,6 +10,7 @@ public class barbero {
 
     public barbero() {}
 
+    // Constructor sin ID (para insertar nuevos barberos)
     public barbero(String nombre, String especialidad, String correo, String telefono, String contrasena) {
         this.nombre = nombre;
         this.especialidad = especialidad;
@@ -18,6 +19,17 @@ public class barbero {
         this.contrasena = contrasena;
     }
 
+    // Constructor con ID (para consultas y actualizaciones)
+    public barbero(int id, String nombre, String especialidad, String correo, String telefono, String contrasena) {
+        this.id = id;
+        this.nombre = nombre;
+        this.especialidad = especialidad;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.contrasena = contrasena;
+    }
+
+    // Getters y Setters
     public int getId() {
         return id;
     }
