@@ -4,12 +4,23 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class CitaUsuario {
+    private int idCita;
     private String nombre;
     private String telefono;
     private String correo;
     private String direccion;
     private Date fecha;
     private Time hora;
+    private String descripcion;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion ;
+    }
+
 
     public CitaUsuario() {}
 
@@ -70,4 +81,10 @@ public class CitaUsuario {
     public void setHora(Time hora) {
         this.hora = hora;
     }
+
+    public int getIdCita() {return idCita;}
+
+    public void setIdCita(int idCita) {this.idCita = idCita;}
+
+
 }

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+   <title>Prueba Botón</title>
+</h:head>
+<h:body>
+   <h1>Prueba de botón JSF</h1>
+
+   <h:form>
+      <h:commandButton value="Botón de Prueba"
+                       action="#{usuarioBean.verificarConexion()}"
+                       style="border: 2px solid blue; padding: 10px;"/>
+   </h:form>
+
+   <h:messages/>
+</h:body>
+</html>

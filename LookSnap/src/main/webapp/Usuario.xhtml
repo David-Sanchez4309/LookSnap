@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Panel de Usuario</title>
+    <style>
+        .citas-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .citas-table th, .citas-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .citas-table th {
+            background-color: #f2f2f2;
+        }
+        .form-edicion {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</h:head>
+<h:body>
+
+    <h:form>
+        <h1>Mis Citas Agendadas</h1>
+
+        <h:messages globalOnly="false" style="color:red;" />
+
+        <h:dataTable value="#{usuarioBean.citas}" var="cita" styleClass="citas-table">
+            <h:column>
+                <f:facet name="header">Fecha</f:facet>
+                <h:outputText value="#{cita.fecha}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Hora</f:facet>
+                <h:outputText value="#{cita.hora}">
+                    <f:convertDateTime pattern="HH:mm" />
+                </h:outputText>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Descripción</f:facet>
+                <h:outputText value="#{cita.descripcion}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Acciones</f:facet>
+                <!-- Botón para cargar datos de la cita seleccionada -->
+                <h:commandButton value="Modificar descripción" action="#{usuarioBean.seleccionarCita(cita)}">
+                    <f:ajax render="formEditar" />
+                </h:commandButton>
+
+                <!-- Botón para eliminar -->
+                <h:commandButton value="Eliminar" action="#{usuarioBean.eliminarCita}"
+                                 onclick="return confirm('¿Está seguro de eliminar esta cita?');">
+                    <f:setPropertyActionListener target="#{usuarioBean.citaSeleccionada}" value="#{cita}" />
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+
+        <!-- Panel para editar cita -->
+        <h:panelGroup id="formEditar" styleClass="form-edicion" rendered="#{not empty usuarioBean.citaSeleccionada}">
+            <h2>Editar Cita</h2>
+
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="fecha" value="Fecha:" />
+                <h:inputText id="fecha" value="#{usuarioBean.nuevaFecha}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:inputText>
+
+                <h:outputLabel for="hora" value="Hora:" />
+                <h:inputText id="hora" value="#{usuarioBean.nuevaHora}">
+                    <f:convertDateTime pattern="HH:mm" />
+                </h:inputText>
+
+                <h:outputLabel for="descripcion" value="Descripción:" />
+                <h:inputTextarea id="descripcion" value="#{usuarioBean.nuevaDescripcion}" rows="3" cols="40" />
+            </h:panelGrid>
+
+            <h:commandButton value="Guardar Cambios" action="#{usuarioBean.guardarCambios}">
+                <f:ajax execute="@form" render="@form" />
+            </h:commandButton>
+        </h:panelGroup>
+
+    </h:form>
+
+</h:body>
+</html>

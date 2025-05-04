@@ -18,26 +18,47 @@ public class RegistroServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String nombre = request.getParameter("nombre");
-        String apellido = request.getParameter("apellido");
+        String apellido = request.getParameter("apellido");//
         String correo = request.getParameter("correo");
         String telefono = request.getParameter("telefono");
         String direccion = request.getParameter("direccion");
         String contrasena = request.getParameter("contrasena");
 
-        if (nombre == null || apellido == null || correo == null || telefono == null || direccion == null || contrasena == null ||
-            nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || contrasena.isEmpty()){
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Apellido: " + apellido);
+        System.out.println("Correo: " + correo);
+        System.out.println("Teléfono: " + telefono);
+        System.out.println("Dirección: " + direccion);
+        System.out.println("Contraseña: " + contrasena);
+
+        if (nombre == null || nombre.isEmpty() ||
+                apellido == null || apellido.isEmpty() ||
+                correo == null || correo.isEmpty() ||
+                telefono == null || telefono.isEmpty() ||
+                direccion == null || direccion.isEmpty() ||
+                contrasena == null || contrasena.isEmpty()) {
             response.sendRedirect("registro.html?error=campos_vacios");
-        }
+            return;
+        }else {
 
+<<<<<<< HEAD
         usuario nuevoUsuario = new usuario(0, nombre, apellido, correo, telefono, direccion, contrasena);
+=======
+            usuario nuevoUsuario = new usuario(0, nombre, apellido, telefono, direccion, contrasena);
+>>>>>>> d66f04423236b9ddd00eba4917e9ab8e53684eaf
 
-        usuariosDAO dao = new usuariosDAO();
-        boolean exito = dao.registrarUsuario(nuevoUsuario);
+            usuariosDAO dao = new usuariosDAO();
+            boolean exito = dao.registrarUsuario(nuevoUsuario);
 
-        if(exito){
-            response.sendRedirect("login.html");
-        }else{
-            response.sendRedirect("registro.html?error=fallo_registro");
+            if (exito) {
+                response.sendRedirect("login.xhtml");
+            } else {
+                response.sendRedirect("registro.html?error=fallo_registro");
+            }
+
+            System.out.println("Nombre: " + nombre);
+            System.out.println("Apellido: " + apellido);
+            System.out.println("Correo: " + correo);
         }
     }
 

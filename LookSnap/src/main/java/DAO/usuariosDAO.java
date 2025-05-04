@@ -49,18 +49,30 @@ public class usuariosDAO {
     public boolean registrarUsuario(usuario u) {
         if (existeUsuario(u.getCorreo())) return false;
 
+<<<<<<< HEAD
         String query = "INSERT INTO usuarios (nombre, apellido, correo, telefono, direccion, contrasena) VALUES (?, ?, ?, ?, ?, ?)";
 
+=======
+        String query = "INSERT INTO usuarios (nombre, apellido, correo, telefono, direccion, contrasena) VALUES (?, ?, ?)";
+>>>>>>> d66f04423236b9ddd00eba4917e9ab8e53684eaf
         try (Connection conn = DataBaseConnection.conectar();
              PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, u.getNombre());
+<<<<<<< HEAD
             ps.setString(2, u.getApellido());
             ps.setString(3, u.getCorreo());
             ps.setString(4, u.getTelefono());
             ps.setString(5, u.getDireccion());
             ps.setString(6, u.getContrasena());
 
+=======
+            ps.setString(6, u.getApellido());
+            ps.setString(2, u.getCorreo());
+            ps.setString(3, u.getTelefono());
+            ps.setString(4, u.getDireccion());
+            ps.setString(5, u.getContrasena());
+>>>>>>> d66f04423236b9ddd00eba4917e9ab8e53684eaf
             ps.executeUpdate();
             return true;
 

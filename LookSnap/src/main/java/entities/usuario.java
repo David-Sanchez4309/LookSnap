@@ -9,10 +9,14 @@ public class usuario {
     private String direccion;
     private String contrasena;
 
+<<<<<<< HEAD
     public usuario() {}
 
     // Constructor completo con todos los campos
     public usuario(int id, String nombre, String apellido, String telefono, String correo, String direccion, String contrasena) {
+=======
+    public usuario(int id, String nombre, String apellido, String telefono, String correo, String direccion, String contrasena){
+>>>>>>> d66f04423236b9ddd00eba4917e9ab8e53684eaf
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -22,7 +26,18 @@ public class usuario {
         this.contrasena = contrasena;
     }
 
+<<<<<<< HEAD
     // Getters y Setters
+=======
+    public usuario() {
+        
+    }
+
+    public usuario(int i, String nombre, String apellido, String telefono, String direccion, String contrasena) {
+    }
+
+
+>>>>>>> d66f04423236b9ddd00eba4917e9ab8e53684eaf
     public int getId() {
         return id;
     }
