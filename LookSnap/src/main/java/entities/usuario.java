@@ -3,41 +3,22 @@ package entities;
 public class usuario {
     private int id;
     private String nombre;
-    private String apellido;
     private String telefono;
     private String correo;
     private String direccion;
     private String contrasena;
 
-<<<<<<< HEAD
-    public usuario() {}
+    public usuario(){}
 
-    // Constructor completo con todos los campos
-    public usuario(int id, String nombre, String apellido, String telefono, String correo, String direccion, String contrasena) {
-=======
-    public usuario(int id, String nombre, String apellido, String telefono, String correo, String direccion, String contrasena){
->>>>>>> d66f04423236b9ddd00eba4917e9ab8e53684eaf
+    public usuario(int id, String nombre, String telefono, String correo, String direccion, String contrasena){
         this.id = id;
         this.nombre = nombre;
-        this.apellido = apellido;
         this.telefono = telefono;
         this.correo = correo;
         this.direccion = direccion;
         this.contrasena = contrasena;
     }
 
-<<<<<<< HEAD
-    // Getters y Setters
-=======
-    public usuario() {
-        
-    }
-
-    public usuario(int i, String nombre, String apellido, String telefono, String direccion, String contrasena) {
-    }
-
-
->>>>>>> d66f04423236b9ddd00eba4917e9ab8e53684eaf
     public int getId() {
         return id;
     }
@@ -52,14 +33,6 @@ public class usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 
     public String getTelefono() {

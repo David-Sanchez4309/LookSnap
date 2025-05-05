@@ -41,11 +41,9 @@ public class RegistroServlet extends HttpServlet {
             return;
         }else {
 
-<<<<<<< HEAD
-        usuario nuevoUsuario = new usuario(0, nombre, apellido, correo, telefono, direccion, contrasena);
-=======
-            usuario nuevoUsuario = new usuario(0, nombre, apellido, telefono, direccion, contrasena);
->>>>>>> d66f04423236b9ddd00eba4917e9ab8e53684eaf
+
+        usuario nuevoUsuario = new usuario();
+
 
             usuariosDAO dao = new usuariosDAO();
             boolean exito = dao.registrarUsuario(nuevoUsuario);

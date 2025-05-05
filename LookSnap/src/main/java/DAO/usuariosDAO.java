@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class usuariosDAO {
-
     public boolean existeUsuario(String correo) {
         String query = "SELECT 1 FROM usuarios WHERE correo = ?";
 
@@ -31,15 +30,11 @@ public class usuariosDAO {
 
     public boolean existeUsuarioPorId(int id) {
         String query = "SELECT 1 FROM usuarios WHERE id = ?";
-
         try (Connection conn = DataBaseConnection.conectar();
              PreparedStatement ps = conn.prepareStatement(query)) {
-
             ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
-            }
-
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -49,33 +44,16 @@ public class usuariosDAO {
     public boolean registrarUsuario(usuario u) {
         if (existeUsuario(u.getCorreo())) return false;
 
-<<<<<<< HEAD
-        String query = "INSERT INTO usuarios (nombre, apellido, correo, telefono, direccion, contrasena) VALUES (?, ?, ?, ?, ?, ?)";
-
-=======
-        String query = "INSERT INTO usuarios (nombre, apellido, correo, telefono, direccion, contrasena) VALUES (?, ?, ?)";
->>>>>>> d66f04423236b9ddd00eba4917e9ab8e53684eaf
+        String query = "INSERT INTO usuarios (nombre, correo, telefono, direccion, contrasena) VALUES (?, ?, ?)";
         try (Connection conn = DataBaseConnection.conectar();
              PreparedStatement ps = conn.prepareStatement(query)) {
-
             ps.setString(1, u.getNombre());
-<<<<<<< HEAD
-            ps.setString(2, u.getApellido());
-            ps.setString(3, u.getCorreo());
-            ps.setString(4, u.getTelefono());
-            ps.setString(5, u.getDireccion());
-            ps.setString(6, u.getContrasena());
-
-=======
-            ps.setString(6, u.getApellido());
             ps.setString(2, u.getCorreo());
             ps.setString(3, u.getTelefono());
             ps.setString(4, u.getDireccion());
             ps.setString(5, u.getContrasena());
->>>>>>> d66f04423236b9ddd00eba4917e9ab8e53684eaf
             ps.executeUpdate();
             return true;
-
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -127,19 +105,19 @@ public class usuariosDAO {
                 u = new usuario(
                         rs.getInt("id"),
                         rs.getString("nombre"),
-                        rs.getString("apellido"),
                         rs.getString("correo"),
                         rs.getString("telefono"),
                         rs.getString("direccion"),
                         rs.getString("contrasena")
                 );
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Error al obtener el usuario: " + e.getMessage());
         }
 
         return u;
     }
+
     public boolean eliminarUsuario(int id) {
         boolean eliminado = false;
         try (Connection conn = DataBaseConnection.conectar()) {

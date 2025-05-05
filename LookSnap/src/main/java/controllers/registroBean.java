@@ -71,6 +71,7 @@ public class registroBean implements Serializable {
     public String registrar() {
         usuariosDAO dao = new usuariosDAO();
 
+        // Crear el usuario usando los datos que ya están en los atributos del Bean
         usuario nuevo = new usuario();
         nuevo.setNombre(nombre);
         nuevo.setCorreo(correo);
@@ -85,7 +86,7 @@ public class registroBean implements Serializable {
             limpiarCampos();
 
             // Redirige al login.xhtml
-            return "/login?faces-redirect=true";
+            return "/login.xhtml?faces-redirect=true";
         } else {
             // Si ya existe el correo
             mensaje = "Este correo ya está registrado.";
