@@ -126,6 +126,13 @@
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.2</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+
         <!-- Jakarta CDI (Context and Dependency Injection) API -->
         <dependency>
             <groupId>jakarta.enterprise</groupId>

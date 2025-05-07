@@ -44,7 +44,7 @@ public class usuariosDAO {
     public boolean registrarUsuario(usuario u) {
         if (existeUsuario(u.getCorreo())) return false;
 
-        String query = "INSERT INTO usuarios (nombre, correo, telefono, direccion, contrasena) VALUES (?, ?, ?)";
+        String query = "INSERT INTO usuarios (nombre, correo, telefono, direccion, contrasena) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DataBaseConnection.conectar();
              PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, u.getNombre());

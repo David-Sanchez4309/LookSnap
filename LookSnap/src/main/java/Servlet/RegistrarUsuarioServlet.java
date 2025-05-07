@@ -69,9 +69,9 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         }
 
         if (registrado) {
-            response.sendRedirect("registroExitoso.jsp");
+            response.sendRedirect("login.xhtml");
         } else {
-            response.sendRedirect("registroFallido.jsp");
+            response.sendRedirect("usuarios/registroFallido.jsp");
         }
     }
 }

@@ -11,7 +11,7 @@
 
 <section class="footer-bg">
     <div class="container">
-        <h2>Registrar un usuario</h2>
+        <h2>Crear Cuenta</h2>
         <form action="${pageContext.request.contextPath}/RegistrarUsuarioServlet" method="POST">
             <div class="campo-1">
                 <input type="text" name="nombre" class="campo" placeholder="Nombre" required />
@@ -30,7 +30,6 @@
                     <option value="">Seleccionar Rol</option>
                     <option value="cliente">Cliente</option>
                     <option value="barbero">Barbero</option>
-                    <option value="administrador">Administrador</option>
                 </select>
             </div>
 
@@ -43,7 +42,7 @@
                 <input type="text" name="especialidad" class="campo" placeholder="Especialidad" />
             </div>
 
-            <button type="submit" class="btn-1">Registrar un usuario</button>
+            <button type="submit" class="btn-1">Registrarse</button>
         </form>
     </div>
 </section>
