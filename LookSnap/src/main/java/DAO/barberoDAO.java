@@ -120,5 +120,26 @@ public class barberoDAO {
         return lista;
     }
 
+    public boolean actualizarBarbero(barbero b) {
+        String sql = "UPDATE barberos SET nombre = ?, especialidad = ?, correo = ?, telefono = ?, contrasena = ? WHERE id = ?";
+        try (Connection conn = DataBaseConnection.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, b.getNombre());
+            stmt.setString(2, b.getEspecialidad());
+            stmt.setString(3, b.getCorreo());
+            stmt.setString(4, b.getTelefono());
+            stmt.setString(5, b.getContrasena());
+            stmt.setInt(6, b.getId());
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar barbero: " + e.getMessage());
+            return false;
+        }
+    }
+
+
 
 }
