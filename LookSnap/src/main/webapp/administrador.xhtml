@@ -1,6 +1,10 @@
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xml:lang="es" lang="es">
+
 <head>
    <meta charset="UTF-8" />
    <title>Panel de Administrador</title>
@@ -102,11 +106,78 @@
    </section>
 
    <!-- Ver barberos -->
-   <section>
-      <h2>Barberos Registrados</h2>
-      <button type="button" onclick="cargarBarberos()">Mostrar Barberos</button>
-      <div id="listaBarberos"></div>
-   </section>
+   <h:form>
+      <h2 style="color: white;">Barberos Registrados</h2>
+
+      <!-- Botón para cargar los barberos -->
+      <h:commandButton value="Ver Barberos" action="#{barberoBean.cargarBarberos}" />
+
+      <!-- Tabla con los datos -->
+      <h:dataTable value="#{barberoBean.listaBarberos}" var="barbero"
+                   rendered="#{not barberoBean.listaVacia}"
+                   styleClass="tabla-barberos" border="1"
+                   style="margin-top: 15px; color: white; width: 100%;">
+
+         <h:column>
+            <f:facet name="header">Nombre</f:facet>
+            #{barbero.nombre}
+         </h:column>
+
+         <h:column>
+            <f:facet name="header">Especialidad</f:facet>
+            #{barbero.especialidad}
+         </h:column>
+
+         <h:column>
+            <f:facet name="header">Correo</f:facet>
+            #{barbero.correo}
+         </h:column>
+
+         <h:column>
+            <f:facet name="header">Teléfono</f:facet>
+            #{barbero.telefono}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Acciones</f:facet>
+            <h:commandButton value="Editar" action="#{barberoBean.prepararEdicion(barbero)}" />
+            <h:commandButton value="Eliminar" action="#{barberoBean.eliminarBarbero(barbero.id)}"
+                             onclick="return confirm('¿Seguro que deseas eliminar este barbero?');"
+                             immediate="true" />
+         </h:column>
+
+      </h:dataTable>
+
+      <!-- Mensaje si no hay barberos -->
+      <h:outputText value="No hay barberos registrados."
+                    rendered="#{barberoBean.listaVacia}"
+                    style="color: white; margin-top: 10px; display: block;" />
+   </h:form>
+
+
+   <h:panelGroup rendered="#{not empty barberoBean.barberoEditando}">
+      <h3>Editar Barbero</h3>
+      <h:form>
+         <h:outputLabel value="Nombre:" />
+         <h:inputText value="#{barberoBean.barberoEditando.nombre}" /><br/>
+         <h:outputLabel value="Especialidad:" />
+         <h:inputText value="#{barberoBean.barberoEditando.especialidad}" /><br/>
+         <h:outputLabel value="Correo:" />
+         <h:inputText value="#{barberoBean.barberoEditando.correo}" /><br/>
+         <h:outputLabel value="Teléfono:" />
+         <h:inputText value="#{barberoBean.barberoEditando.telefono}" /><br/>
+         <h:outputLabel value="Contraseña:" />
+         <h:inputSecret value="#{barberoBean.barberoEditando.contrasena}" /><br/><br/>
+
+         <h:commandButton value="Guardar Cambios" action="#{barberoBean.actualizarBarbero}" />
+         <h:commandButton value="Cancelar" action="#{barberoBean.cancelarEdicion}" immediate="true" />
+      </h:form>
+   </h:panelGroup>
+
+
+
+
+
+
 
    <!-- Descargar reportes -->
    <section>
@@ -117,15 +188,29 @@
    <!-- Crear barbero -->
    <section>
       <h2>Crear Perfil de Barbero</h2>
-      <form action="CrearBarberoServlet" method="post">
-         <input type="text" name="nombre" placeholder="Nombre del barbero" required="required" />
-         <input type="text" name="telefono" placeholder="Teléfono" required="required" />
-         <input type="email" name="correo" placeholder="Correo" required="required" />
-         <input type="text" name="direccion" placeholder="Dirección" required="required" />
-         <input type="password" name="contrasena" placeholder="Contraseña" required="required" />
-         <button type="submit">Crear Barbero</button>
-      </form>
+      <h:form>
+         <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="nombre" value="Nombre:" />
+            <h:inputText id="nombre" value="#{barberoBean.nuevoBarbero.nombre}" required="true" />
+
+            <h:outputLabel for="telefono" value="Teléfono:" />
+            <h:inputText id="telefono" value="#{barberoBean.nuevoBarbero.telefono}" required="true" />
+
+            <h:outputLabel for="correo" value="Correo:" />
+            <h:inputText id="correo" value="#{barberoBean.nuevoBarbero.correo}" required="true" />
+
+            <h:outputLabel for="especialidad" value="Especialidad:" />
+            <h:inputText id="especialidad" value="#{barberoBean.nuevoBarbero.especialidad}" required="true" />
+
+            <h:outputLabel for="contrasena" value="Contraseña:" />
+            <h:inputSecret id="contrasena" value="#{barberoBean.nuevoBarbero.contrasena}" required="true" />
+         </h:panelGrid>
+
+         <br/>
+         <h:commandButton value="Agregar Barbero" action="#{barberoBean.agregarBarbero}" />
+      </h:form>
    </section>
+
 
 </main>
 
