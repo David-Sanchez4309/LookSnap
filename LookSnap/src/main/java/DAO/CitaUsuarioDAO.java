@@ -99,4 +99,29 @@ public class CitaUsuarioDAO {
             e.printStackTrace();
         }
     }
+
+    public boolean registrarCita(CitaUsuario cita) {
+        String sql = "INSERT INTO citas (nombre, telefono, correo, direccion, fecha, hora, descripcion) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DataBaseConnection.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, cita.getNombre());
+            ps.setString(2, cita.getTelefono());
+            ps.setString(3, cita.getCorreo());
+            ps.setString(4, cita.getDireccion());
+            ps.setDate(5, cita.getFecha());
+            ps.setTime(6, cita.getHora());
+            ps.setString(7, cita.getDescripcion());
+
+            ps.executeUpdate();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }

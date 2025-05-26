@@ -157,18 +157,24 @@
    <footer>
       <div class="footer-bg">
          <h2>Reserva de Cita</h2>
-         <form>
+         <form action="registrarCita" method="post">
             <div class="campo-1">
-               <input class="campo" type="text" placeholder="Nombre" />
-               <input class="campo" type="number" placeholder="Telefono" />
+               <input class="campo" type="text" name="nombre" placeholder="Nombre" required="required" />
+               <input class="campo" type="text" name="telefono" placeholder="Telefono" required="required" />
             </div>
             <div class="campo-1">
-               <input class="campo" type="text" placeholder="Direccion" />
-               <input class="campo" type="email" placeholder="Correo Electronico" />
+               <input class="campo" type="text" name="direccion" placeholder="Direccion" required="required" />
+               <input class="campo" type="email" name="correo" placeholder="Correo Electronico" required="required" />
             </div>
-            <textarea class="campo" cols="30" rows="10" placeholder="Texto"></textarea>
+            <div class="campo-1">
+               <input class="campo" type="date" name="fecha" required="required" />
+               <input class="campo" type="time" name="hora" required="required" />
+            </div>
+            <textarea class="campo" name="descripcion" cols="30" rows="10" placeholder="Descripción de la cita (opcional)"></textarea>
             <input type="submit" value="Enviar" class="btn-1" />
          </form>
+
+
       </div>
       <div class="footer-txt">
          <p>Lorem ipsum dolor sit, amet consectetur</p>

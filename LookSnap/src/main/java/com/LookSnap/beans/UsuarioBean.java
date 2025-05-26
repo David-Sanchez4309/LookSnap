@@ -1,39 +1,88 @@
 package com.LookSnap.beans;
+
 import jakarta.inject.Named;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
+
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+
 import DAO.CitaUsuarioDAO;
 import entities.CitaUsuario;
 import entities.usuario;
 
-
+import jakarta.annotation.PostConstruct;
 
 @Named("usuarioBean")
-@RequestScoped
-
+@ViewScoped
 public class UsuarioBean implements Serializable {
-    private usuario usuarioLogueado; //para cuando el login este disponible
+    private static final long serialVersionUID = 1L;
+
+    private usuario usuarioLogueado; // para cuando el login esté disponible
     private List<CitaUsuario> citas;
     private CitaUsuario citaSeleccionada;
-    private java.sql.Date nuevaFecha;  // Para fecha
-    private java.sql.Time nuevaHora;
+
+    private Date nuevaFecha;
+    private Date nuevaHora;
+    private String nuevaDescripcion;
+
     private final int USUARIO_ID_FIJO = 2;
 
+    @PostConstruct
+    public void init() {
+        cargarCitas();
+    }
 
-    private String nuevaDescripcion;
+    public usuario getUsuarioLogueado() {
+        return usuarioLogueado;
+    }
+
+    public List<CitaUsuario> getCitas() {
+        return citas;
+    }
+
+    public CitaUsuario getCitaSeleccionada() {
+        return citaSeleccionada;
+    }
+
+    public void setCitaSeleccionada(CitaUsuario citaSeleccionada) {
+        this.citaSeleccionada = citaSeleccionada;
+        if (citaSeleccionada != null) {
+            this.nuevaFecha = citaSeleccionada.getFecha();
+            this.nuevaHora = citaSeleccionada.getHora();
+            this.nuevaDescripcion = citaSeleccionada.getDescripcion();
+        }
+    }
+
+    public Date getNuevaFecha() {
+        return nuevaFecha;
+    }
+
+    public void setNuevaFecha(Date nuevaFecha) {
+        this.nuevaFecha = nuevaFecha;
+    }
+
+    public Date getNuevaHora() {
+        return nuevaHora;
+    }
+
+    public void setNuevaHora(Date nuevaHora) {
+        this.nuevaHora = nuevaHora;
+    }
+
     public String getNuevaDescripcion() {
         return nuevaDescripcion;
     }
+
     public void setNuevaDescripcion(String nuevaDescripcion) {
         this.nuevaDescripcion = nuevaDescripcion;
     }
+
     public String seleccionarCita(CitaUsuario cita) {
-        this.setCitaSeleccionada(cita);
+        setCitaSeleccionada(cita);
         return null; // Mantiene en la misma página
     }
 
@@ -41,6 +90,7 @@ public class UsuarioBean implements Serializable {
         CitaUsuarioDAO dao = new CitaUsuarioDAO();
         citas = dao.listarCitasPorUsuario(USUARIO_ID_FIJO);
     }
+
     public String eliminarCita() {
         CitaUsuarioDAO dao = new CitaUsuarioDAO();
         if (dao.eliminarCita(citaSeleccionada.getIdCita())) {
@@ -53,9 +103,15 @@ public class UsuarioBean implements Serializable {
         }
         return null;
     }
+
     public String guardarCambios() {
         CitaUsuarioDAO dao = new CitaUsuarioDAO();
-        if (dao.actualizarCita(citaSeleccionada.getIdCita(), nuevaFecha, nuevaHora, nuevaDescripcion)) {
+        if (dao.actualizarCita(
+                citaSeleccionada.getIdCita(),
+                new java.sql.Date(nuevaFecha.getTime()),
+                new java.sql.Time(nuevaHora.getTime()),
+                nuevaDescripcion)) {
+
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage("Cambios guardados correctamente"));
             cargarCitas();
@@ -66,27 +122,6 @@ public class UsuarioBean implements Serializable {
         return null;
     }
 
-
-    public usuario getUsuarioLogueado() { return usuarioLogueado; }
-    public List<CitaUsuario> getCitas() {
-        if (citas == null) {
-            cargarCitas();
-        }
-        return citas;
-    }
-    public CitaUsuario getCitaSeleccionada() { return citaSeleccionada; }
-
-    public void setCitaSeleccionada(CitaUsuario citaSeleccionada) {
-        this.citaSeleccionada = citaSeleccionada;
-        this.nuevaFecha = new java.sql.Date(citaSeleccionada.getFecha().getTime());
-        this.nuevaHora = new Time(citaSeleccionada.getHora().getTime());
-        this.nuevaDescripcion = citaSeleccionada.getDescripcion();
-
-    }
-    public Date getNuevaFecha() { return nuevaFecha; }
-    public void setNuevaFecha(Date nuevaFecha) { this.nuevaFecha = (java.sql.Date) nuevaFecha; }
-    public Time getNuevaHora() { return nuevaHora; }
-    public void setNuevaHora(Time nuevaHora) { this.nuevaHora = nuevaHora; }
     public void verificarConexion() {
         try {
             CitaUsuarioDAO dao = new CitaUsuarioDAO();
@@ -94,7 +129,7 @@ public class UsuarioBean implements Serializable {
 
             System.out.println("=== PRUEBA DE CONEXIÓN ===");
             System.out.println("Número de citas encontradas: " + citasTest.size());
-            for(CitaUsuario c : citasTest) {
+            for (CitaUsuario c : citasTest) {
                 System.out.println(c.getIdCita() + " - " + c.getFecha() + " - " + c.getHora());
             }
 
@@ -105,5 +140,4 @@ public class UsuarioBean implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error en prueba: " + e.getMessage(), null));
         }
     }
-
 }
