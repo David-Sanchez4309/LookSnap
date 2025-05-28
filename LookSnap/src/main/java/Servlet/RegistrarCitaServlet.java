@@ -34,7 +34,7 @@ public class RegistrarCitaServlet extends HttpServlet {
             Date fecha = Date.valueOf(fechaStr);
             Time hora = Time.valueOf(horaStr);
 
-            CitaUsuario cita = new CitaUsuario(nombre, telefono, correo, direccion, fecha, hora);
+            CitaUsuario cita = new CitaUsuario( );
             cita.setDescripcion(descripcion);
 
             CitaUsuarioDAO dao = new CitaUsuarioDAO();
