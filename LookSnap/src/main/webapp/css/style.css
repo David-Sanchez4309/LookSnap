@@ -401,6 +401,15 @@ textarea {
 .login-links a:hover {
     color: #cf2d3a;
 }
+.btn-cerrar-sesion {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #D82E37;
+    color: white;
+    border: none;
+}
 
 
 @media(max-width:991px) {

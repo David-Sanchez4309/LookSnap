@@ -66,8 +66,12 @@
       input {
          background-color: #f1f1f1;
       }
+      td {
+         color: #f6f8fa;
+         align-content: center;
+      }
 
-      button {
+      button{
          background-color: #D82E37;
          color: white;
          cursor: pointer;
@@ -87,16 +91,30 @@
          margin-top: 15px;
          font-size: 16px;
       }
+      .btn-cerrar-sesion {
+         padding: 6px 12px;
+         font-size: 12px;
+         border-radius: 5px;
+         cursor: pointer;
+         background-color: #D82E37;
+         color: white;
+         border: none;
+      }
  </style>
 </head>
 
 <body>
 
 <header>
-   Panel del Administrador
+   <span style="text-align: center">Panel del Administrador</span>
+    <h:form style="position: absolute; top: 20px; right: 20px;">
+        <h:commandButton class="btn-cerrar-sesion" value="Cerrar Sesión" action="#{loginBean.cerrarSesion}" />
+    </h:form>
 </header>
 
+
 <main>
+
 
    <!-- Ver estadísticas -->
    <section>
@@ -104,19 +122,20 @@
       <button type="button" onclick="verEstadisticas()">Ver Estadísticas</button>
       <div id="estadisticas"></div>
    </section>
+   <section>
 
    <!-- Ver barberos -->
    <h:form>
       <h2 style="color: white;">Barberos Registrados</h2>
 
       <!-- Botón para cargar los barberos -->
-      <h:commandButton value="Ver Barberos" action="#{barberoBean.cargarBarberos}" />
+      <h:commandButton style="background-color: #D82E37;color: white;cursor: pointer; " value="Ver Barberos" action="#{barberoBean.cargarBarberos}" />
 
       <!-- Tabla con los datos -->
       <h:dataTable value="#{barberoBean.listaBarberos}" var="barbero"
                    rendered="#{not barberoBean.listaVacia}"
                    styleClass="tabla-barberos" border="1"
-                   style="margin-top: 15px; color: white; width: 100%;">
+                   style="margin-top: 15px; color: white; width: 100%; background-color: #5f5e5e80">
 
          <h:column>
             <f:facet name="header">Nombre</f:facet>
@@ -147,12 +166,7 @@
 
       </h:dataTable>
 
-      <!-- Mensaje si no hay barberos -->
-      <h:outputText value="No hay barberos registrados."
-                    rendered="#{barberoBean.listaVacia}"
-                    style="color: white; margin-top: 10px; display: block;" />
    </h:form>
-
 
    <h:panelGroup rendered="#{not empty barberoBean.barberoEditando}">
       <h3>Editar Barbero</h3>
@@ -172,13 +186,7 @@
          <h:commandButton value="Cancelar" action="#{barberoBean.cancelarEdicion}" immediate="true" />
       </h:form>
    </h:panelGroup>
-
-
-
-
-
-
-
+   </section>
    <!-- Descargar reportes -->
    <section>
       <h2>Descargar Reporte</h2>
@@ -213,26 +221,5 @@
 
 
 </main>
-
-<script type="text/javascript">
-   function verEstadisticas() {
-      document.getElementById('estadisticas').innerText =
-              "Total barberos: 5\nClientes activos: 20\nCitas este mes: 150";
-   }
-
-   function cargarBarberos() {
-      document.getElementById('listaBarberos').innerHTML = `
-         &lt;ul>
-            &lt;li>Juan Pérez&lt;/li>
-            &lt;li>Carlos Ramírez&lt;/li>
-            &lt;li>Kevin Torres&lt;/li>
-         &lt;/ul>`;
-   }
-
-   function descargarCSV() {
-      window.location.href = "GenerarReporteCSVServlet";
-   }
-</script>
-
 </body>
 </html>

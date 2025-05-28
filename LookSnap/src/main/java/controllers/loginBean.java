@@ -10,12 +10,15 @@ import DAO.administradorDAO;
 import DAO.barberoDAO;
 
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 
 @Named("loginBean")
 @SessionScoped
 public class loginBean implements Serializable {
+    @Inject
+    private CitaBean citaBean;
 
     private static final long serialVersionUID = 1L;
 
@@ -32,7 +35,8 @@ public class loginBean implements Serializable {
 
     // Constructor
     public loginBean() {
-        // Los DAO ya se inicializan arriba (se puede dejar vacío el constructor)
+
+
     }
 
     // Getters y Setters
@@ -62,19 +66,18 @@ public class loginBean implements Serializable {
             limpiarCampos(); // Limpia los campos después de login
             return "/index.xhtml?faces-redirect=true";
         } else if (b != null) {
+            citaBean.setBarberoId(b.getId());
             limpiarCampos();
             return "/barbero.xhtml?faces-redirect=true";
         } else if (a != null) {
             limpiarCampos();
             return "/administrador.xhtml?faces-redirect=true";
         } else {
-            // Aquí podrías agregar un mensaje de error usando FacesContext
             limpiarCampos();
             return "/login.xhtml?faces-redirect=true";
         }
     }
 
-    // Obtener el nombre del usuario/barbero/admin logueado
     public String getNombreLogueado() {
         if (b != null) {
             return b.getNombre();
@@ -86,8 +89,6 @@ public class loginBean implements Serializable {
             return "Invitado";
         }
     }
-
-    // Cerrar sesión y limpiar objetos
     public String cerrarSesion() {
         u = null;
         b = null;
@@ -96,9 +97,9 @@ public class loginBean implements Serializable {
         return "/login.xhtml?faces-redirect=true";
     }
 
-    // Método para limpiar los campos del formulario
     private void limpiarCampos() {
         correo = null;
         contrasena = null;
     }
+
 }

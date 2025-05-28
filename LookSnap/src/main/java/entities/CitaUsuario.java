@@ -3,7 +3,11 @@ package entities;
 import java.sql.Date;
 import java.sql.Time;
 
+/**
+ * Clase que representa una cita junto con los datos del usuario.
+ */
 public class CitaUsuario {
+
     private int idCita;
     private String nombre;
     private String telefono;
@@ -13,27 +17,28 @@ public class CitaUsuario {
     private Time hora;
     private String descripcion;
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion ;
-    }
-
-
+    // 🔹 Constructores
     public CitaUsuario() {}
 
-    public CitaUsuario(String nombre, String telefono, String correo, String direccion, Date fecha, Time hora) {
+    public CitaUsuario(String nombre, String telefono, String correo, String direccion, Date fecha, Time hora, String descripcion) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.correo = correo;
         this.direccion = direccion;
         this.fecha = fecha;
         this.hora = hora;
+        this.descripcion = descripcion;
     }
 
-    // Getters y Setters
+    // 🔹 Getters y Setters
+    public int getIdCita() {
+        return idCita;
+    }
+
+    public void setIdCita(int idCita) {
+        this.idCita = idCita;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -82,9 +87,11 @@ public class CitaUsuario {
         this.hora = hora;
     }
 
-    public int getIdCita() {return idCita;}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-    public void setIdCita(int idCita) {this.idCita = idCita;}
-
-
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

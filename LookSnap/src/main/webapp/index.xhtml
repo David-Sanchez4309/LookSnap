@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xml:lang="es"
       lang="es">
 
@@ -25,13 +26,19 @@
          <nav class="navbar">
             <ul>
                <li><a href="pruebaconexion.xhtml">Inicio</a></li>
-               <li><a href="barbero.xhtml">Servicio</a></li>
-               <li><a href="administrador.xhtml">Productos</a></li>
-               <li><a href="verCitas.xhtml">Contacto</a></li>
-               <li><a href="Usuario.xhtml">Contacto</a></li>
+               <li><a href="Usuario.xhtml">Citas Agendadas</a></li>
 
             </ul>
          </nav>
+      </div>
+      <div style="position: absolute; top: 20px; right: 20px;">
+
+         <h:form >
+
+            <h:commandButton value="Cerrar Sesión" class="btn-cerrar-sesion" action="#{loginBean.cerrarSesion}">
+               <f:ajax render="@form"/>
+            </h:commandButton>
+         </h:form>
       </div>
 
       <div class="header-content container">

@@ -1,66 +1,173 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:c="http://java.sun.com/jstl/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xml:lang="es" lang="es">
+
 <h:head>
+   <meta charset="UTF-8"/>
    <title>Citas Agendadas</title>
+   <link rel="stylesheet" href="css/style.css"/>
+   <style>
+      body {
+         margin: 0;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         background-image: url(images/bg-2.png);
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         color: #ffffff;
+      }
+
+      header {
+         background-color: rgba(0, 0, 0, 0.7);
+         color: white;
+         text-align: center;
+         padding: 20px;
+         font-size: 28px;
+         font-weight: bold;
+         letter-spacing: 1px;
+      }
+
+      .tabla-container {
+         background-color: rgb(77, 73, 73);
+         border-radius: 10px;
+         box-shadow: 0 4px 12px rgba(85, 4, 4, 0.7);
+         padding: 20px 30px;
+         margin: 30px auto;
+         width: 95%;
+         max-width: 1100px;
+         overflow-x: auto;
+      }
+
+      h2 {
+         text-align: center;
+         font-size: 28px;
+         margin-bottom: 20px;
+         font-weight: bold;
+         letter-spacing: 2px;
+      }
+
+      table {
+         width: 100%;
+         border-collapse: separate;
+         border-spacing: 0 15px;
+         color: white;
+         text-align: center;
+      }
+
+      th, td {
+         padding: 16px 20px;
+         vertical-align: middle;
+      }
+
+      th {
+         background-color: #D82E37;
+         color: white;
+         border-radius: 8px;
+         font-size: 16px;
+      }
+
+      td {
+         background-color: rgba(255, 255, 255, 0.05);
+         border-radius: 8px;
+         font-size: 15px;
+      }
+
+      tr:hover td {
+         background-color: rgba(23, 21, 21, 0.1);
+      }
+
+      .btn {
+         padding: 8px 14px;
+         border: none;
+         border-radius: 5px;
+         font-size: 14px;
+         cursor: pointer;
+         margin: 0 5px;
+      }
+
+      .btn-eliminar {
+         background-color: #D82E37;
+         color: white;
+      }
+
+      @media (max-width: 768px) {
+         th, td {
+            font-size: 14px;
+            padding: 12px;
+         }
+
+         h2 {
+            font-size: 22px;
+         }
+      }
+   </style>
 </h:head>
+
 <h:body>
-   <h1>Listado de Usuarios</h1>
+   <header>Gestión de Usuarios</header>
 
-   <h2>Clientes</h2>
-   <table border="1">
-      <tr><th>Nombre</th><th>Correo</th><th>Acciones</th></tr>
-      <c:forEach var="c" items="${clientes}">
-         <tr>
-            <td>${c.nombre}</td>
-            <td>${c.correo}</td>
-            <td>
-               <form action="EliminarUsuarioServlet" method="post" style="display:inline;">
-                  <input type="hidden" name="id" value="${c.id}"></input>
-                  <input type="hidden" name="rol" value="cliente"></input>
-                  <input type="submit" value="Eliminar"></input>
-               </form>
-               <!-- Aquí puedes añadir botón para cambiar rol más adelante -->
-            </td>
-         </tr>
-      </c:forEach>
-   </table>
+   <div class="tabla-container">
+      <h2>Clientes</h2>
+      <table>
+         <tr><th>Nombre</th><th>Correo</th><th>Acciones</th></tr>
+         <c:forEach var="c" items="${clientes}">
+            <tr>
+               <td>${c.nombre}</td>
+               <td>${c.correo}</td>
+               <td>
+                  <form action="EliminarUsuarioServlet" method="post" style="display:inline;">
+                     <input type="hidden" name="id" value="${c.id}" />
+                     <input type="hidden" name="rol" value="cliente" />
+                     <input type="submit" value="Eliminar" class="btn btn-eliminar"/>
+                  </form>
+               </td>
+            </tr>
+         </c:forEach>
+      </table>
+   </div>
 
-   <h2>Barberos</h2>
-   <table border="1">
-      <tr><th>Nombre</th><th>Correo</th><th>Acciones</th></tr>
-      <c:forEach var="b" items="${barberos}">
-         <tr>
-            <td>${b.nombre}</td>
-            <td>${b.correo}</td>
-            <td>
-               <form action="EliminarUsuarioServlet" method="post" style="display:inline;">
-                  <input type="hidden" name="id" value="${b.id}"></input>
-                  <input type="hidden" name="rol" value="barbero"></input>
-                  <input type="submit" value="Eliminar" ></input>
-               </form>
-            </td>
-         </tr>
-      </c:forEach>
-   </table>
+   <div class="tabla-container">
+      <h2>Barberos</h2>
+      <table>
+         <tr><th>Nombre</th><th>Correo</th><th>Acciones</th></tr>
+         <c:forEach var="b" items="${barberos}">
+            <tr>
+               <td>${b.nombre}</td>
+               <td>${b.correo}</td>
+               <td>
+                  <form action="EliminarUsuarioServlet" method="post" style="display:inline;">
+                     <input type="hidden" name="id" value="${b.id}" />
+                     <input type="hidden" name="rol" value="barbero" />
+                     <input type="submit" value="Eliminar" class="btn btn-eliminar"/>
+                  </form>
+               </td>
+            </tr>
+         </c:forEach>
+      </table>
+   </div>
 
-   <h2>Administradores</h2>
-   <table border="1">
-      <tr><th>Nombre</th><th>Correo</th><th>Acciones</th></tr>
-      <c:forEach var="a" items="${administradores}">
-         <tr>
-            <td>${a.nombre}</td>
-            <td>${a.correo}</td>
-            <td>
-               <form action="EliminarUsuarioServlet" method="post" style="display:inline;">
-                  <input type="hidden" name="id" value="${a.id}"></input>
-                  <input type="hidden" name="rol" value="administrador"></input>
-                  <input type="submit" value="Eliminar"></input>
-               </form>
-            </td>
-         </tr>
-      </c:forEach>
-   </table>
+   <div class="tabla-container">
+      <h2>Administradores</h2>
+      <table>
+         <tr><th>Nombre</th><th>Correo</th><th>Acciones</th></tr>
+         <c:forEach var="a" items="${administradores}">
+            <tr>
+               <td>${a.nombre}</td>
+               <td>${a.correo}</td>
+               <td>
+                  <form action="EliminarUsuarioServlet" method="post" style="display:inline;">
+                     <input type="hidden" name="id" value="${a.id}" />
+                     <input type="hidden" name="rol" value="administrador" />
+                     <input type="submit" value="Eliminar" class="btn btn-eliminar"/>
+                  </form>
+               </td>
+            </tr>
+         </c:forEach>
+      </table>
+   </div>
 </h:body>
 </html>

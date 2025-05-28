@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xml:lang="es" lang="es">
+
+<h:head>
     <meta charset="UTF-8"/>
     <title>Panel del Barbero</title>
     <link rel="stylesheet" href="css/style.css"/>
@@ -27,7 +32,7 @@
         }
 
         .tabla-container {
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgb(77, 73, 73);
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(85, 4, 4, 0.7);
             padding: 20px 30px;
@@ -53,6 +58,10 @@
             text-align: center;
         }
 
+        td {
+            color: rgba(255, 255, 255, 0.99);
+        }
+
         th, td {
             padding: 16px 20px;
             text-align: center;
@@ -73,7 +82,7 @@
         }
 
         tr:hover td {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(23, 21, 21, 0.1);
         }
 
         .btn {
@@ -94,6 +103,15 @@
             background-color: #2ECC71;
             color: white;
         }
+        .btn-cerrar-sesion {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #D82E37;
+            color: white;
+            border: none;
+        }
 
         @media (max-width: 768px) {
             th, td {
@@ -106,51 +124,93 @@
             }
         }
     </style>
-</head>
-<body>
-<header>
-    <span id="nombreBarbero">Panel del Barbero #{loginBean.nombreLogueado}</span>
-</header>
+</h:head>
 
-<div class="tabla-container">
-    <h2>Listado de Citas</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Cliente</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Servicio</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>Juan Pérez</td>
-            <td>2025-05-05</td>
-            <td>10:00 AM</td>
-            <td>Corte Clásico</td>
-            <td>
-                <button class="btn btn-eliminar">Eliminar</button>
-                <button class="btn btn-realizado">Realizado</button>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>María Gómez</td>
-            <td>2025-05-05</td>
-            <td>11:30 AM</td>
-            <td>Fade + Barba</td>
-            <td>
-                <button class="btn btn-eliminar">Eliminar</button>
-                <button class="btn btn-realizado">Realizado</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<h:body>
+    <f:view>
+        <!-- Evento para cargar citas automáticamente -->
+        <f:event type="preRenderView" listener="#{citaBean.cargarCitasBarbero}" />
 
-</body>
+        <header>
+
+
+            <span style="text-align: center">Panel del Barbero #{loginBean.nombreLogueado}</span>
+
+            <div style="position: absolute; top: 20px; right: 20px;">
+
+            <h:form >
+
+                <h:commandButton value="Cerrar Sesión" class="btn-cerrar-sesion" action="#{loginBean.cerrarSesion}">
+                    <f:ajax render="@form"/>
+                </h:commandButton>
+            </h:form>
+            </div>
+        </header>
+
+        <div class="tabla-container">
+            <h2 style="margin-top: 40px; text-align: center">Listado de Citas</h2>
+
+            <h:form>
+                <h:messages globalOnly="true" layout="table" style="color:red;" />
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Servicio</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ui:repeat value="#{citaBean.citasBarbero}" var="cita">
+                        <tr>
+                            <td>#{cita.idCita}</td>
+                            <td>#{cita.nombre}</td>
+                            <td>#{cita.telefono}</td>
+                            <td>#{cita.correo}</td>
+                            <td>#{cita.fecha}</td>
+                            <td>#{cita.hora}</td>
+                            <td>#{cita.descripcion}</td>
+                            <td>
+                                <h:commandButton value="Eliminar" styleClass="btn btn-eliminar"
+                                                 action="#{citaBean.eliminarCita(cita.idCita)}">
+                                    <f:ajax render="@form"/>
+                                </h:commandButton>
+                                <h:commandButton value="Editar" styleClass="btn btn-realizado"
+                                                 action="#{citaBean.prepararEdicion(cita)}"
+                                                 immediate="true">
+                                    <f:ajax render="@form"/>
+                                </h:commandButton>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+
+
+                <h:panelGroup rendered="#{not empty citaBean.citaEditando.idCita}">
+                    <h2 style="margin-top: 40px; text-align: center">Editar Descripción de la Cita</h2>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel for="descripcion" value="Descripción:" />
+                        <h:inputText id="descripcion" value="#{citaBean.citaEditando.descripcion}" required="true"/>
+
+                        <h:commandButton value="Guardar cambios" action="#{citaBean.actualizarCita()}">
+                            <f:ajax render="@form"/>
+                        </h:commandButton>
+
+                        <h:commandButton value="Cancelar" action="#{citaBean.cancelarEdicion()}">
+                            <f:ajax render="@form"/>
+                        </h:commandButton>
+                    </h:panelGrid>
+                </h:panelGroup>
+
+            </h:form>
+        </div>
+    </f:view>
+</h:body>
 </html>

@@ -88,5 +88,14 @@ public class BarberoBean implements Serializable {
     public void cancelarEdicion() {
         barberoEditando = null;
     }
+    private barbero barberoLogueado;
+
+    public barbero getBarberoLogueado() {
+        return barberoLogueado;
+    }
+
+    public void setBarberoLogueado(barbero barberoLogueado) {
+        this.barberoLogueado = barberoLogueado;
+    }
 
 }
